@@ -1,0 +1,71 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+build/
+bld/
+[Bb]uild[Ll]og.*
+*.dbmdl
+*.pdb
+*.cache
+*.log
+*.svclog
+
+# Visual Studio
+.vscode/
+.vs/
+*.vc.db
+*.opendb
+*.tlog
+*.ide
+
+# Rider
+.idea/
+
+# Blazor / WebAssembly specific
+wwwroot/dist/
+wwwroot/css/app.bundle.css
+wwwroot/js/app.bundle.js
+wwwroot/service-worker-assets.js
+wwwroot/_framework/
+wwwroot/_content/
+
+# ASP.NET Identity and database
+*.db
+appsettings.*.json
+secrets.json
+
+# User secrets
+**/secrets.json
+
+# Others
+*.swp
+*.tmp
+*.bak
+*.old
+*.orig
+*.sln.docstates
+
+# Docker
+docker-compose.override.yml
+**/Dockerfile.*
+**/docker-compose*
+
+# Logs
+*.log
+
+# OS-generated files
+Thumbs.db
+ehthumbs.db
+.DS_Store
+Icon?
+desktop.ini
