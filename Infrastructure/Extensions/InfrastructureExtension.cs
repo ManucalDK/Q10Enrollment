@@ -13,7 +13,7 @@ namespace Infrastructure.Extensions
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlite(config.GetConnectionString("Default")));
 
-            services.AddScoped(typeof(IRepository<>), typeof(IRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IStudentRepository, StudentRepository>();
 
             return services;

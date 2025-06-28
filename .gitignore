@@ -41,6 +41,7 @@ wwwroot/_content/
 
 # ASP.NET Identity and database
 *.db
+*.db-*
 appsettings.*.json
 secrets.json
 
