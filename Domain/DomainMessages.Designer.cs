@@ -61,6 +61,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The value of {0} must be greater to {1}.
+        /// </summary>
+        internal static string ArgGreaterThan {
+            get {
+                return ResourceManager.GetString("ArgGreaterThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The {0} don&apos;t have the valid format.
         /// </summary>
         internal static string ArgInvalidFormat {

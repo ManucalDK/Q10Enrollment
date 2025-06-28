@@ -1,0 +1,44 @@
+﻿@page "/students"
+@using Domain.Entities
+@using Domain.Ports.Services
+@inject IStudentService StudentService
+
+<PageTitle>Student List</PageTitle>
+
+@if (_students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Document</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in _students)
+            {
+                <tr>
+                    <td>@student.Id.ToString()</td>
+                    <td>@student.Name</td>
+                    <td>@student.Document</td>
+                    <td>@student.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Student>? _students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _students = await StudentService.GetStudents();
+    }
+}

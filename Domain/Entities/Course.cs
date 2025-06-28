@@ -13,7 +13,7 @@ namespace Domain.Entities
         {
 
             ArgumentValidator.NullOrWhiteSpace(name, string.Format(DomainMessages.ArgStringNull, nameof(Name)));
-            ArgumentValidator.ValueMin(credits, MIN_CREDIT, string.Format(DomainMessages.ArgOutOfRange, nameof(Credits), MIN_CREDIT));
+            ArgumentValidator.ValueMin(credits, MIN_CREDIT, string.Format(DomainMessages.ArgGreaterThan, nameof(Credits), MIN_CREDIT));
 
             Name = name;
             Credits = credits;

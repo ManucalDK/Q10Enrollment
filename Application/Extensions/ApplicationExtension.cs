@@ -10,6 +10,7 @@ namespace Application.Extensions
         {
             services.AddScoped<IEnrollmentService, EnrollmentService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IStudentService, StudentService>();
 
             return services;
         }

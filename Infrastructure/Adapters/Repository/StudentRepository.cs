@@ -18,5 +18,13 @@ namespace Infrastructure.Adapters.Repository
                 .ThenInclude(entity => entity.Course)
                 .FirstOrDefaultAsync(student => student.Id == studentId);
         }
+
+        public Task<List<Student>> GetWithEnrollmentsAsync()
+        {
+            return _context.Students
+                .Include(entity => entity.Enrollments)
+                .ThenInclude(entity => entity.Course)
+                .ToListAsync();
+        }
     }
 }

@@ -120,6 +120,9 @@
   <data name="ArgInvalidFormat" xml:space="preserve">
     <value>The {0} don't have the valid format</value>
   </data>
+  <data name="ArgGreaterThan" xml:space="preserve">
+    <value>The value of {0} must be greater to {1}</value>
+  </data>
   <data name="ArgOutOfRange" xml:space="preserve">
     <value>The value of {0} must be between {1} and {2}</value>
   </data>
