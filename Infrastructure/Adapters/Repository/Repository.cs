@@ -43,7 +43,6 @@ namespace Infrastructure.Adapters.Repository
 
         public async Task UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
     }

@@ -6,5 +6,6 @@ namespace Domain.Ports.Repository
     {
         Task<Student?> GetWithEnrollmentsAsync(Guid studentId);
         Task<List<Student>> GetWithEnrollmentsAsync();
+        Task<Student?> GetStudentByEmail(string email);
     }
 }

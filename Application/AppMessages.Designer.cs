@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Domain {
+namespace Application {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DomainMessages {
+    internal class AppMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DomainMessages() {
+        internal AppMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Domain {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Domain.DomainMessages", typeof(DomainMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Application.AppMessages", typeof(AppMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,20 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The value of {0} must be greater to {1}.
-        /// </summary>
-        internal static string ArgGreaterThan {
-            get {
-                return ResourceManager.GetString("ArgGreaterThan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The {0} don&apos;t have the valid format.
-        /// </summary>
-        internal static string ArgInvalidFormat {
-            get {
-                return ResourceManager.GetString("ArgInvalidFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The value of {0} must be between {1} and {2}.
-        /// </summary>
-        internal static string ArgOutOfRange {
-            get {
-                return ResourceManager.GetString("ArgOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The value of {0} cannot be null or whitespace.
-        /// </summary>
-        internal static string ArgStringNull {
-            get {
-                return ResourceManager.GetString("ArgStringNull", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The email {0} already exists in the system.
+        ///   Busca una cadena traducida similar a The email {0} already exists in the system .
         /// </summary>
         internal static string ExistEmailExceptionMessage {
             get {
                 return ResourceManager.GetString("ExistEmailExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The student with id {0} does not exist.
+        /// </summary>
+        internal static string StudentNotExistExceptionMessage {
+            get {
+                return ResourceManager.GetString("StudentNotExistExceptionMessage", resourceCulture);
             }
         }
     }

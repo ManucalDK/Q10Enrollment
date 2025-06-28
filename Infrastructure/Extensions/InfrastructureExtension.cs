@@ -11,7 +11,8 @@ namespace Infrastructure.Extensions
     {
         public static IServiceCollection InfrastructureServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlite(config.GetConnectionString("Default")));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(config.GetConnectionString("Default")));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IStudentRepository, StudentRepository>();
