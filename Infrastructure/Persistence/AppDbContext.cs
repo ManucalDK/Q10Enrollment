@@ -19,12 +19,14 @@ namespace Infrastructure.Persistence
             modelBuilder.Entity<Enrollment>()
                 .HasOne(entity => entity.Student)
                 .WithMany(entity => entity.Enrollments)
-                .HasForeignKey(entitty => entitty.StudentId);
+                .HasForeignKey(entitty => entitty.StudentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Enrollment>()
                 .HasOne(entity => entity.Course)
                 .WithMany(entity => entity.Enrollments)
-                .HasForeignKey(entitty => entitty.CourseId);
+                .HasForeignKey(entitty => entitty.CourseId)
+                .OnDelete(DeleteBehavior.Cascade); ;
 
             modelBuilder.Entity<Student>()
                 .HasIndex(entity => entity.Email)
