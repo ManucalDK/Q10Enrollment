@@ -1,6 +1,6 @@
 ﻿using Domain.Dtos;
 using Domain.Entities;
-using Domain.Exceptions;
+using Domain.Exceptions.StudentExceptions;
 using Domain.Ports.Repository;
 using Domain.Ports.Services;
 
@@ -31,7 +31,8 @@ namespace Application.Services
         {
             var studentList = await _studentRepository.GetWithEnrollmentsAsync();
 
-            return studentList.OrderBy(x => x.Name).ToList();
+            return studentList.OrderBy(student => student.Name)
+                .ToList();
         }
 
         public async Task<Student> GetStudentById(Guid id)
@@ -48,7 +49,7 @@ namespace Application.Services
         {
             var updateStudent = await _studentRepository.GetStudentByEmail(student.Email);
 
-            if (updateStudent is not null)
+            if (updateStudent is not null && !id.Equals(updateStudent.Id))
             {
                 throw new StudentEmailExistException(string.Format(AppMessages.ExistEmailExceptionMessage, student.Email));
             }

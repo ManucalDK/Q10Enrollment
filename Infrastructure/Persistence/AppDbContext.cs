@@ -35,6 +35,10 @@ namespace Infrastructure.Persistence
             modelBuilder.Entity<Student>()
                 .HasIndex(entity => entity.Document)
                 .IsUnique();
+
+            modelBuilder.Entity<Course>()
+                .HasIndex(entity => entity.Code)
+                .IsUnique();
         }
     }
 }

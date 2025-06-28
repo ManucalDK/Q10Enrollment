@@ -16,6 +16,7 @@ namespace Infrastructure.Extensions
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
 
             return services;
         }

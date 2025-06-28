@@ -1,12 +1,12 @@
-﻿@page "/students"
+﻿@page "/courses"
 @using Domain.Entities
 @using Domain.Ports.Services
-@inject IStudentService StudentService
+@inject ICourseService CourseService
 @inject IJSRuntime JS
 
-<PageTitle>Student List</PageTitle>
+<PageTitle>Course List</PageTitle>
 
-@if (_students == null)
+@if (_courses == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -14,7 +14,7 @@ else
 {
     <div class="d-flex flex-column">
         <div class="d-flex justify-content-end mb-2">
-            <NavLink class="btn btn-success btn-sm" href="/student">
+            <NavLink class="btn btn-success btn-sm" href="/course">
                 <span class="bi bi-patch-plus" data-toggle="tooltip" data-placement="top" title="Agregar"></span>
                 Agregar
             </NavLink>
@@ -23,27 +23,26 @@ else
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Document</th>
-                    <th>Email</th>
+                    <th>Code</th>
+                    <th>Credits</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var student in _students)
+                @foreach (var course in _courses)
                 {
                     <tr>
-                        <td>@student.Name</td>
-                        <td>@student.Document</td>
-                        <td>@student.Email</td>
+                        <td>@course.Name</td>
+                        <td>@course.Code</td>
+                        <td>@course.Credits</td>
                         <td>
                             <div class="d-flex p-2 gap-2">
-                                <button class="btn btn-warning" @onclick="() => EditStudent(student.Id)">
+                                <button class="btn btn-warning" @onclick="() => EditCourse(course.Id)">
                                     <span class="bi bi-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></span>
                                 </button>
-                                <button type="button" class="btn btn-danger" @onclick="() => ConfirmAndDelete(student.Id)">
+                                <button type="button" class="btn btn-danger" @onclick="() => ConfirmAndDelete(course.Id)">
                                     <span class="bi bi-trash" data-toggle="tooltip" data-placement="top" title="Delete"></span>
                                 </button>
-                                <button type="button" class="btn btn-info"><span class="bi bi-journal-bookmark" data-toggle="tooltip" data-placement="top" title="Edit Courses"></span></button>
                             </div>
                         </td>
                     </tr>
@@ -52,21 +51,20 @@ else
         </table>
     </div>
 }
-
 @code {
     [Inject]
     private NavigationManager Navigation { get; set; } = default!;
 
-    private List<Student>? _students;
+    private List<Course>? _courses;
 
     protected override async Task OnInitializedAsync()
     {
-        _students = await StudentService.GetStudents();
+        _courses = await CourseService.GetCourses();
     }
 
-    private void EditStudent(Guid id)
+    private void EditCourse(Guid id)
     {
-        Navigation.NavigateTo($"/student/{id}");
+        Navigation.NavigateTo($"/course/{id}");
     }
 
     private async Task ConfirmAndDelete(Guid id)
@@ -74,8 +72,8 @@ else
         bool confirmed = await JS.InvokeAsync<bool>("showConfirm", "Do you want to delete this record?");
         if (confirmed)
         {
-            await StudentService.DeleteStudent(id);
-            _students = await StudentService.GetStudents();
+            await CourseService.DeleteCourse(id);
+            _courses = await CourseService.GetCourses();
         }
     }
 }
