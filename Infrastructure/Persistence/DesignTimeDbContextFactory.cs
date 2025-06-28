@@ -15,7 +15,7 @@ namespace Infrastructure.Persistence
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             var connectionString = config.GetConnectionString("Default");
-            optionsBuilder.UseSqlite(connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new AppDbContext(optionsBuilder.Options);
         }

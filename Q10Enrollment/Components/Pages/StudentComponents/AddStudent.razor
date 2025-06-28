@@ -1,0 +1,89 @@
+﻿@page "/student"
+@page "/student/{Id:guid?}"
+
+@using Domain.Ports.Services
+@using Domain.Dtos
+@inject IStudentService StudentService
+@inject NavigationManager Navigation
+
+@if (!string.IsNullOrWhiteSpace(@_errorMessage))
+{
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+        <div>
+            @_errorMessage
+        </div>
+    </div>
+}
+
+<EditForm Model="this" OnValidSubmit="HandleValidSubmit">
+    <div class="mb-3">
+        <label for="inputName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind="_studentName" required>
+    </div>
+    <div class="mb-3">
+        <label for="inputDocument" class="form-label">Document</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" @bind="_studentDocument" required>
+    </div>
+    <div class="mb-3">
+        <label for="inputMail" class="form-label">Mail</label>
+        <input type="email" class="form-control" id="exampleInputPassword1" @bind="_studentEmail" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private string _studentName = string.Empty;
+    private string _studentDocument = string.Empty;
+    private string _studentEmail = string.Empty;
+    private string _errorMessage = string.Empty;
+
+    [Parameter]
+    public Guid? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            try
+            {
+                var student = await StudentService.GetStudentById(Id.Value);
+                _studentName = student.Name;
+                _studentDocument = student.Document;
+                _studentEmail = student.Email;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+            }
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var student = new AddStudentDto
+        (
+            Name: _studentName,
+            Document: _studentDocument,
+            Email: _studentEmail
+        );
+
+        try
+        {
+            if (Id.HasValue)
+            {
+                await StudentService.UpdateStudent(Id.Value, student);
+            }
+            else
+            {
+                await StudentService.AddStudent(student);
+            }
+            Navigation.NavigateTo("/students");
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+
+    }
+}
