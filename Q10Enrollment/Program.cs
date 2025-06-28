@@ -1,3 +1,7 @@
+using Infrastructure.Extensions;
+using Infrastructure.Persistence;
+using Application.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Q10Enrollment.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Call config extension methos
+builder.Services.InfrastructureServices(builder.Configuration);
+builder.Services.ApplicationServices();
 
 var app = builder.Build();
 
@@ -23,5 +31,11 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();
