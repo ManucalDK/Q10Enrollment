@@ -1,6 +1,6 @@
 ﻿namespace Domain.Helpers
 {
-    static class ArgumentValidator
+    public static class ArgumentValidator
     {
         public static void NullOrWhiteSpace(string value, string message)
         {
@@ -20,7 +20,7 @@
 
         public static void ValueMin<T>(T value, T minValue, string message) where T : IComparable<T>
         {
-            if (value.CompareTo(minValue) < 0)
+            if (value.CompareTo(minValue) <= 0)
             {
                 throw new ArgumentException(message);
             }
