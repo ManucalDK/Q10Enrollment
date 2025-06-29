@@ -14,7 +14,7 @@ namespace Infrastructure.Adapters.Repository
         public Task<Student?> GetStudentByEmail(string email)
         {
             return _context.Students
-                    .FirstOrDefaultAsync(x => x.Email.Equals(email));
+                    .FirstOrDefaultAsync(student => student.Email.Equals(email));
         }
 
         public Task<Student?> GetWithEnrollmentsAsync(Guid studentId)

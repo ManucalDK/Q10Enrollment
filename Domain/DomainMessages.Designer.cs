@@ -7,11 +7,14 @@
 //     se vuelve a generar el código.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("Test")]
 
 namespace Domain {
     using System;
-    
-    
+    using System.Runtime.CompilerServices;
+
+
     /// <summary>
     ///   Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
     /// </summary>
@@ -22,6 +25,7 @@ namespace Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    
     internal class DomainMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;

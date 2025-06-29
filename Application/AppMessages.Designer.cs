@@ -61,6 +61,33 @@ namespace Application {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The course with the id {0} already exists.
+        /// </summary>
+        internal static string CourseCodeExistExceptionMessage {
+            get {
+                return ResourceManager.GetString("CourseCodeExistExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The course with id {0} does not excist.
+        /// </summary>
+        internal static string CourseNotexistExceptionMessage {
+            get {
+                return ResourceManager.GetString("CourseNotexistExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The amount of credits exceeds the allowed limit.
+        /// </summary>
+        internal static string EnrollmentCreditLimitExceptionMessage {
+            get {
+                return ResourceManager.GetString("EnrollmentCreditLimitExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The email {0} already exists in the system .
         /// </summary>
         internal static string ExistEmailExceptionMessage {

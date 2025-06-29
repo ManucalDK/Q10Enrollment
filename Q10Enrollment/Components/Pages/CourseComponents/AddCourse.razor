@@ -1,12 +1,12 @@
-﻿@page "/student"
-@page "/student/{Id:guid?}"
+﻿@page "/course"
+@page "/course/{Id:guid?}"
 
 @using Domain.Ports.Services
 @using Domain.Dtos
-@inject IStudentService StudentService
+@inject ICourseService CourseService
 @inject NavigationManager Navigation
 
-<PageTitle>Student Management</PageTitle>
+<PageTitle>Course Management</PageTitle>
 
 @if (!string.IsNullOrWhiteSpace(@_errorMessage))
 {
@@ -21,23 +21,23 @@
 <EditForm Model="this" OnValidSubmit="HandleValidSubmit">
     <div class="mb-3">
         <label for="inputName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind="_studentName" required>
+        <input type="text" class="form-control" id="inputName" aria-describedby="emailHelp" @bind="_courseName" required>
     </div>
     <div class="mb-3">
-        <label for="inputDocument" class="form-label">Document</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" @bind="_studentDocument" required>
+        <label for="inputCode" class="form-label">Code</label>
+        <input type="text" class="form-control" id="inputCode" @bind="_courseCode" required>
     </div>
     <div class="mb-3">
-        <label for="inputMail" class="form-label">Mail</label>
-        <input type="email" class="form-control" id="exampleInputPassword1" @bind="_studentEmail" required>
+        <label for="inputCredits" class="form-label">Credits</label>
+        <input type="number" class="form-control" id="inputCredits" min="1" @bind="_courseCredits" required>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
 
 @code {
-    private string _studentName = string.Empty;
-    private string _studentDocument = string.Empty;
-    private string _studentEmail = string.Empty;
+    private string _courseName = string.Empty;
+    private string _courseCode = string.Empty;
+    private int _courseCredits = 1;
 
     private string _errorMessage = string.Empty;
 
@@ -50,10 +50,10 @@
         {
             try
             {
-                var student = await StudentService.GetStudentById(Id.Value);
-                _studentName = student.Name;
-                _studentDocument = student.Document;
-                _studentEmail = student.Email;
+                var course = await CourseService.GetCourseById(Id.Value);
+                _courseName = course.Name;
+                _courseCode = course.Code;
+                _courseCredits = course.Credits;
             }
             catch (Exception ex)
             {
@@ -64,24 +64,24 @@
 
     private async Task HandleValidSubmit()
     {
-        var student = new AddStudentDto
+        var course = new AddCourseDto
         (
-            Name: _studentName,
-            Document: _studentDocument,
-            Email: _studentEmail
+            Name: _courseName,
+            Code: _courseCode,
+            Credits: _courseCredits
         );
 
         try
         {
             if (Id.HasValue)
             {
-                await StudentService.UpdateStudent(Id.Value, student);
+                await CourseService.UpdateCourse(Id.Value, course);
             }
             else
             {
-                await StudentService.AddStudent(student);
+                await CourseService.AddCourse(course);
             }
-            Navigation.NavigateTo("/students");
+            Navigation.NavigateTo("/courses");
         }
         catch (Exception ex)
         {

@@ -13,8 +13,6 @@ namespace Infrastructure.Persistence
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Enrollment>()
-                .HasKey( entity => new { entity.StudentId, entity.CourseId});
 
             modelBuilder.Entity<Enrollment>()
                 .HasOne(entity => entity.Student)
@@ -34,6 +32,10 @@ namespace Infrastructure.Persistence
 
             modelBuilder.Entity<Student>()
                 .HasIndex(entity => entity.Document)
+                .IsUnique();
+
+            modelBuilder.Entity<Course>()
+                .HasIndex(entity => entity.Code)
                 .IsUnique();
         }
     }

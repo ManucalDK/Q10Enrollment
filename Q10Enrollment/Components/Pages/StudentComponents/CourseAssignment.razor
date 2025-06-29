@@ -1,0 +1,162 @@
+﻿@page "/assignment/{Id:guid}"
+@using Domain.Entities
+@using Domain.Ports.Services
+@inject IEnrollmentService EnrollmentService
+@inject ICourseService CourseService
+@inject IJSRuntime JS
+
+<PageTitle>Course Assignment</PageTitle>
+
+@if (!string.IsNullOrWhiteSpace(@_errorMessage))
+{
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+        <div>
+            @_errorMessage
+        </div>
+    </div>
+}
+
+@if (_courses == null || _assignments == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>Assigned Courses</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Credits</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var course in _assignments)
+                        {
+                            <tr>
+                                <td>@course.Name</td>
+                                <td>@course.Code</td>
+                                <td>@course.Credits</td>
+                                <td>
+                                    <div class="d-flex p-2 gap-2">
+                                        <button type="button" class="btn btn-danger" @onclick="() => ConfirmAndRemove(course.Id)">
+                                            <span class="bi bi-trash" data-toggle="tooltip" data-placement="top" title="Delete"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <h2>Unassigned Courses</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Credits</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var course in _courses)
+                        {
+                            <tr>
+                                <td>@course.Name</td>
+                                <td>@course.Code</td>
+                                <td>@course.Credits</td>
+                                <td>
+                                    <div class="d-flex p-2 gap-2">
+                                        <button class="btn btn-success" @onclick="() => AssignCourse(course.Id)">
+                                            <span class="bi bi bi-node-plus" data-toggle="tooltip" data-placement="top" title="Edit"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+@code {
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    private List<Course>? _courses;
+    private List<Course>? _assignments;
+
+    private string _errorMessage = string.Empty;
+
+    [Parameter]
+    public Guid? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            try
+            {
+                _assignments = await CourseService.GetAssignedCourses(Id.Value);
+                _courses = await CourseService.GetCoursesWithoutAssignment(Id.Value);
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+            }
+        }
+        else
+        {
+            Navigation.NavigateTo($"/");
+        }
+    }
+    private async Task AssignCourse(Guid id)
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("showConfirm", "Do you want to assign this course?");
+
+        if (confirmed && Id.HasValue){
+        }
+        try
+        {
+            _errorMessage = string.Empty;
+            await EnrollmentService.EnrollAsync(Id.Value, id);
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+
+        _assignments = await CourseService.GetAssignedCourses(Id.Value);
+        _courses = await CourseService.GetCoursesWithoutAssignment(Id.Value);
+    }
+
+    private async Task ConfirmAndRemove(Guid idCourse)
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("showConfirm", "Do you want to unassign this course?");
+
+        if (confirmed && Id.HasValue)
+        {
+            try
+            {
+                _errorMessage = string.Empty;
+                await EnrollmentService.UnassignAsync(Id.Value, idCourse);
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = ex.Message;
+            }
+
+            _assignments = await CourseService.GetAssignedCourses(Id.Value);
+            _courses = await CourseService.GetCoursesWithoutAssignment(Id.Value);
+        }
+    }
+}

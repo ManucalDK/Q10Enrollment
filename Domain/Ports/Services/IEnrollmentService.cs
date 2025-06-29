@@ -4,5 +4,6 @@
     {
         Task<bool> CanEnrollAsync(Guid stundentId, Guid courseId);
         Task EnrollAsync(Guid studentId, Guid courseId);
+        Task UnassignAsync(Guid studentId, Guid courseId);
     }
 }
