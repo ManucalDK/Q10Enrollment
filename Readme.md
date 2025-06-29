@@ -1,4 +1,4 @@
-# Prueba Tecnica - Desarrollador con Liderazgo T閏nico
+# Prueba Tecnica - Desarrollador con Liderazgo T茅cnico
 
 Requisitos para ejecutar la aplicacion:
 * .NET 8 SDK
@@ -11,10 +11,11 @@ Requisitos para ejecutar la aplicacion:
 	  2.1. dotnet restore
 	  2.2. dotnet build
 	  3.3. dotnet run --project Q10Enrollment/Q10Enrollment.csproj
-Al ejecutar la aplicaci髇, el proyecto deber韆 aplicar autom醫icamente las migraciones necesarias para crear el esquema de la base de datos.
-En caso de presentar inconvenientes con la conexi髇 a la base de datos, actualice la cadena de conexi髇 en la clave `"Default"` dentro del archivo `appsettings.json` del proyecto `Q10Enrollment`, de acuerdo con la configuraci髇 de SQL Server en su sistema.
-Ejemplo de configuraci髇:
- ``` json {
+Al ejecutar la aplicaci贸n, el proyecto deber铆a aplicar autom谩ticamente las migraciones necesarias para crear el esquema de la base de datos.
+En caso de presentar inconvenientes con la conexi贸n a la base de datos, actualice la cadena de conexi贸n en la clave `"Default"` dentro del archivo `appsettings.json` del proyecto `Q10Enrollment`, de acuerdo con la configuraci贸n de SQL Server en su sistema.
+Ejemplo de configuraci贸n:
+ ``` json
+{
   "Logging": {
     "LogLevel": {
       "Default": "Information",
