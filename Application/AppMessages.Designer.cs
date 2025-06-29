@@ -79,6 +79,15 @@ namespace Application {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The amount of credits exceeds the allowed limit.
+        /// </summary>
+        internal static string EnrollmentCreditLimitExceptionMessage {
+            get {
+                return ResourceManager.GetString("EnrollmentCreditLimitExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The email {0} already exists in the system .
         /// </summary>
         internal static string ExistEmailExceptionMessage {

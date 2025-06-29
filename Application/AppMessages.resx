@@ -123,6 +123,9 @@
   <data name="CourseNotexistExceptionMessage" xml:space="preserve">
     <value>The course with id {0} does not excist</value>
   </data>
+  <data name="EnrollmentCreditLimitExceptionMessage" xml:space="preserve">
+    <value>The amount of credits exceeds the allowed limit</value>
+  </data>
   <data name="ExistEmailExceptionMessage" xml:space="preserve">
     <value>The email {0} already exists in the system </value>
   </data>

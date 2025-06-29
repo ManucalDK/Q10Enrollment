@@ -13,8 +13,6 @@ namespace Infrastructure.Persistence
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Enrollment>()
-                .HasKey( entity => new { entity.StudentId, entity.CourseId});
 
             modelBuilder.Entity<Enrollment>()
                 .HasOne(entity => entity.Student)

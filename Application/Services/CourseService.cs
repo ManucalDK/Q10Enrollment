@@ -9,9 +9,11 @@ namespace Application.Services
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
-        public CourseService(ICourseRepository courseRepository)
+        private readonly IStudentRepository _studentRepository;
+        public CourseService(ICourseRepository courseRepository, IStudentRepository studentRepository)
         {
             _courseRepository = courseRepository;
+            _studentRepository = studentRepository;
         }
         public async Task<List<Course>> GetCourses()
         {
@@ -73,6 +75,27 @@ namespace Application.Services
             updateCourse.UpdateValues(name: newCourse.Name, code: newCourse.Code, credits: newCourse.Credits);
 
             await _courseRepository.UpdateAsync(updateCourse);
+        }
+
+        public async Task<List<Course>> GetAssignedCourses(Guid studentId)
+        {
+            var student = await _studentRepository.GetWithEnrollmentsAsync(studentId);
+
+            return student?.Enrollments
+                .Select(enrollment => enrollment.Course)
+                .OrderBy(enrollment => enrollment.Name)
+                .ThenBy(enrollment => enrollment.Code)
+                .ToList() ?? new List<Course>();
+        }
+
+        public async Task<List<Course>> GetCoursesWithoutAssignment(Guid studentId)
+        {
+            var assignments = await GetAssignedCourses(studentId);
+
+            var courses = await _courseRepository.GetAllAsync();
+
+            return courses.Where(course => !assignments.Any(assigment => assigment.Id.Equals(course.Id)))
+                .ToList();
         }
 
 

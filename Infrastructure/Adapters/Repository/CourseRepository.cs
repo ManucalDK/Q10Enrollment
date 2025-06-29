@@ -11,10 +11,20 @@ namespace Infrastructure.Adapters.Repository
         {
         }
 
+        public Task<List<Course>> GetAssignedCourses(Guid studentId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Course?> GetcourseByCode(string code)
         {
             return _context.Courses
                     .FirstOrDefaultAsync(course => course.Code.Equals(code));
+        }
+
+        public Task<List<Course>> GetCoursesWithoutAssignment(Guid studentId)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<Course?> GetWithEnrollmentsAsync(Guid courseId)

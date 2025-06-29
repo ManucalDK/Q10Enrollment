@@ -3,15 +3,18 @@ using Domain.Entities;
 using Domain.Exceptions.StudentExceptions;
 using Domain.Ports.Repository;
 using Domain.Ports.Services;
+using System.Runtime.CompilerServices;
 
 namespace Application.Services
 {
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-        public StudentService(IStudentRepository studentRepository)
+        private readonly IEnrollmentRepository _enrollmentRepository;
+        public StudentService(IStudentRepository studentRepository, IEnrollmentRepository enrollmentRepository)
         {
             _studentRepository = studentRepository;
+            _enrollmentRepository = enrollmentRepository;
         }
 
         public async Task AddStudent(AddStudentDto newStudent)
@@ -74,5 +77,6 @@ namespace Application.Services
             }
             await _studentRepository.DeleteAsync(id);
         }
+
     }
 }
