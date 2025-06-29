@@ -25,4 +25,5 @@ Ejemplo de configuración:
   "ConnectionStrings": {
     "Default": "Server=localhost\\SQLEXPRESS;Database=MyAppDb;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=True;"
   }
-}``` 
+}
+``` 
